@@ -1,25 +1,51 @@
 <template>
+<p>{{message}}</p>
   <form id="signupForm">
-    <input type="text" placeholder="Your Name" name="name" class="dInput" />
+    <input type="text" v-model="name" placeholder="Your Name" class="dInput" />
     <input
       type="email"
+      v-model="email"
       placeholder="Yout VIT Mail"
-      name="email"
       class="dInput"
     />
     <input
       type="password"
+      v-model="password"
       placeholder="Set a Password"
-      name="password"
       class="dInput"
     />
-    <button name="Sign Up" class="btn rippleRed">Sign Up</button>
+    <button type="button" name="Sign Up" @click="signup()" class="btn rippleRed">
+      Sign Up
+    </button>
   </form>
 </template>
 
 <script>
+import AuthenticationService from "@/services/AuthenticationService";
 export default {
-  name: "SignUpForm"
+  data() {
+    return {
+      email: "",
+      password: "",
+      name: "",
+      message: "",
+    };
+  },
+  methods: {
+    async signup() {
+      const response = await AuthenticationService.register({
+        name: this.name,
+        email: this.email,
+        password: this.password
+      });
+      if(response.data.error) {
+        this.message = response.data.error;
+      }
+      else if(response.data.user){
+        this.$router.push("/");
+      }
+    }
+  }
 };
 </script>
 

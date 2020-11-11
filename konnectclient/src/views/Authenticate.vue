@@ -11,7 +11,7 @@
       <h1>Konnect to What <span>Matters</span></h1>
       <SignUpForm v-if="signupClicked" />
       <LoginForm v-if="loginClicked" />
-      <div class="btnContainer">
+      <div class="btnContainer" v-if="!$store.state.Authenticated">
         <button
           v-if="!signupClicked && !loginClicked"
           v-on:click="clickLogin()"
@@ -32,6 +32,18 @@
           class="btn rippleGreen"
         >
           Back
+        </button>
+      </div>
+      <div class="btnContainer" v-if="$store.state.Authenticated">
+        <button
+          v-on:click="
+            () => {
+              $router.push('/');
+            }
+          "
+          class="btn rippleGreen"
+        >
+          Start
         </button>
       </div>
     </div>
@@ -122,6 +134,7 @@ export default {
     };
   },
   methods: {
+    //Button functionality
     resetClicked: async function() {
       await new Promise(r => setTimeout(r, 250));
       this.loginClicked = false;
@@ -137,6 +150,8 @@ export default {
     }
   },
   async mounted() {
+    // console.log(this.$store.state.Authenticated)
+    //Animate the Text
     for (var i = 0; i < 6; i++) {
       var selected = this.keywords[i];
       for (let c of selected) {

@@ -1,8 +1,10 @@
 <template>
+  <!-- To render the Routes Here -->
   <router-view />
 </template>
 
 <style>
+/* These classes are Global and can be used in any component */
 .dInput {
   width: 90%;
   height: 2.5rem;
@@ -69,5 +71,29 @@
 </style>
 
 <script>
-export default {};
+import AuthenticationService from "@/services/AuthenticationService";
+export default {
+  //Run This Script as soon as App starts, used to validate the saved tokens
+  async beforeCreate() {
+    if (localStorage.getItem("token") != null) {
+      // console.log(localStorage.getItem("token"))
+      const response = await AuthenticationService.authenticate(
+        {},
+        {
+          headers: {
+            authtoken: localStorage.getItem("token")
+          }
+        }
+      );
+      // console.log(response);
+      if (response.data.error) {
+        // console.log(response.data.err)
+        this.$store.dispatch("logout");
+      } else {
+        console.log("Authenticated");
+        this.$store.dispatch("authenticate");
+      }
+    }
+  }
+};
 </script>

@@ -23,26 +23,32 @@ module.exports = {
           email: email,
           password: hash,
         });
-        newUser.save(function (err) {
-          if (err) {
-            res.status(403).send({
-              error: "User Already Exists",
-            });
-          } else {
-            User.findOne({ email: email }, function (err, user) {
-              if (err) {
-                res.status(500).send({
-                  error: "Internal Server Error",
-                });
-              } else {
-                res.send({
-                  user: newUser.toJSON(),
-                  token: jwtSignUser(newUser.toJSON()),
-                });
-              }
-            });
-          }
-        });
+        if (email.includes("vitstudent.ac.in")) {
+          newUser.save(function (err) {
+            if (err) {
+              res.status(200).send({
+                error: "User Already Exists",
+              });
+            } else {
+              User.findOne({ email: email }, function (err, user) {
+                if (err) {
+                  res.status(200).send({
+                    error: "Internal Server Error",
+                  });
+                } else {
+                  res.send({
+                    user: newUser.toJSON(),
+                    token: jwtSignUser(newUser.toJSON()),
+                  });
+                }
+              });
+            }
+          });
+        } else {
+          res.send({
+            error: "Sorry only Vit Students are allowed",
+          });
+        }
       }
     });
   },
@@ -54,7 +60,7 @@ module.exports = {
         console.log(err);
       }
       if (!user) {
-        res.status(403).send({
+        res.status(200).send({
           error: "User not found",
         });
       } else {
@@ -68,7 +74,7 @@ module.exports = {
                 token: jwtSignUser(user.toJSON()),
               });
             } else {
-              res.status(403).send({
+              res.status(200).send({
                 error: "Invalid Password",
               });
             }
@@ -76,5 +82,18 @@ module.exports = {
         });
       }
     });
+  },
+  authenticate(req, res) {
+    jwt.verify(
+      req.headers.authtoken,
+      config.authentication.jwtSecret,
+      function (err, decoded) {
+        if (err) {
+          res.send({ error: "Not Authenticated" });
+        } else {
+          res.send({ authenticated: true, id: decoded.id });
+        }
+      }
+    );
   },
 };

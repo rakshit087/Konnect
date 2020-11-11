@@ -1,16 +1,19 @@
 <template>
-  <form id="loginForm">
-    <input placeholder="Email" class="dInput" v-model="email" />
-    <input
-      placeholder="Password"
-      type="password"
-      v-model="password"
-      class="dInput"
-    />
-    <button type="button" class="btn rippleRed" v-on:click="login()">
-      Login
-    </button>
-  </form>
+  <div>
+    <p>{{ message }}</p>
+    <form id="loginForm">
+      <input placeholder="Email" class="dInput" v-model="email" />
+      <input
+        placeholder="Password"
+        type="password"
+        v-model="password"
+        class="dInput"
+      />
+      <button type="button" class="btn rippleRed" v-on:click="login()">
+        Login
+      </button>
+    </form>
+  </div>
 </template>
 
 <script>
@@ -19,7 +22,8 @@ export default {
   data() {
     return {
       email: "",
-      password: ""
+      password: "",
+      message: ""
     };
   },
   methods: {
@@ -28,13 +32,26 @@ export default {
         email: this.email,
         password: this.password
       });
-      console.log(response);
+      if (response.data.error) {
+        this.message = response.data.error;
+      } else if (response.data.token) {
+        this.$store.dispatch('setToken',response.data.token);
+        this.$store.dispatch('authenticate');
+        this.$router.push("/");
+      }
     }
   }
 };
 </script>
 
 <style scoped lang="scss">
+div {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 form {
   display: flex;
   flex-direction: column;
