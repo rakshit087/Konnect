@@ -4,30 +4,26 @@ export default createStore({
   state: {
     token: null || localStorage.getItem("token"),
     user: null || localStorage.getItem("userid"),
-    Authenticated: false
+    isAuthenticated: false
   },
   mutations: {
     setToken(state, token) {
       state.token = token;
-      localStorage.setItem("token",token);
+      localStorage.setItem("token", token);
     },
     setUser(state, user) {
       state.user = user;
-      localStorage.setItem("userid",user);
+      localStorage.setItem("userid", user);
     },
-    authenticate(state){
-      state.Authenticated = true;
-      // console.log(state.Authenticated);
-      // sessionStorage.setItem("authentication",true);
+    authenticate(state) {
+      state.isAuthenticated = true;
     },
-    logout(state){
-      state.Authenticated = false;
+    logout(state) {
+      state.isAuthenticated = false;
       state.token = null;
       state.user = null;
-      localStorage.setItem("userid",null);
-      localStorage.setItem("token",null);
-      sessionStorage.setItem("authentication",null);
-      console.log("Logged Out");
+      localStorage.setItem("userid", null);
+      localStorage.setItem("token", null);
     }
   },
   actions: {
@@ -37,10 +33,10 @@ export default createStore({
     setUser({ commit }, user) {
       commit("setUser", user);
     },
-    authenticate({commit}){
+    authenticate({ commit }) {
       commit("authenticate");
     },
-    logout({commit}){
+    logout({ commit }) {
       commit("logout");
     }
   },

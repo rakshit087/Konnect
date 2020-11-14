@@ -1,17 +1,17 @@
 <template>
-  <div class="container">
-    <div class="leftBox">
+  <div class="w-screen h-screen flex">
+    <div class="leftBox bg-offWhite w-3/5">
       <div>
         <h2>Konnect To</h2>
         <br />
-        <h1>{{ selected }}</h1>
+        <h1 class="text-brightRed">{{ selected }}</h1>
       </div>
     </div>
-    <div class="rightBox">
-      <h1>Konnect to What <span>Matters</span></h1>
+    <div class="rightBox w-2/5 flex flex-col">
+      <h1>Konnect to What <span class="text-brightRed">Matters</span></h1>
       <SignUpForm v-if="signupClicked" />
       <LoginForm v-if="loginClicked" />
-      <div class="btnContainer" v-if="!$store.state.Authenticated">
+      <div class="btnContainer" v-if="!$store.state.isAuthenticated">
         <button
           v-if="!signupClicked && !loginClicked"
           v-on:click="clickLogin()"
@@ -34,11 +34,12 @@
           Back
         </button>
       </div>
-      <div class="btnContainer" v-if="$store.state.Authenticated">
+      <div class="btnContainer">
+        v-if="$store.state.isAuthenticated">
         <button
           v-on:click="
             () => {
-              $router.push('/');
+              $router.push('/Home');
             }
           "
           class="btn rippleGreen"
@@ -52,8 +53,6 @@
 
 <style lang="scss" scoped>
 .leftBox {
-  width: 60%;
-  background-color: #f5f5f5;
   div {
     position: relative;
     top: 50%;
@@ -62,7 +61,6 @@
       display: inline;
       padding-right: 30px;
       font-size: 4.5rem;
-      color: #fc5185;
       font-weight: 900;
       overflow: hidden;
       border-right: 0.15em solid orange;
@@ -75,9 +73,6 @@
   }
 }
 .rightBox {
-  width: 40%;
-  display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   h1 {
@@ -85,9 +80,6 @@
     bottom: 5%;
     font-size: 1.5rem;
     color: #364f6b;
-    span {
-      color: #fc5185;
-    }
   }
   .btnContainer {
     text-align: center;
@@ -150,7 +142,6 @@ export default {
     }
   },
   async mounted() {
-    // console.log(this.$store.state.Authenticated)
     //Animate the Text
     for (var i = 0; i < 6; i++) {
       var selected = this.keywords[i];

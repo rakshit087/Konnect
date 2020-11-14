@@ -1,22 +1,33 @@
-<template>
-  <div class="container">
-    <h1>ITS A SECREAT PAGE</h1>
-    <button
-      type="button"
-      @click="
-        () => {
-          this.$store.dispatch('logout');
-          $router.push('/authenticate');
-        }
-      "
-    >
-      Logout
-    </button>
+<template :key="name">
+  <div class="w-screen h-screen flex">
+    <Sidebar />
+    <component :is="comp"></component>
+    <WidgetBox />
   </div>
 </template>
 
 <script>
+import Sidebar from "@/components/Sidebar";
+import { defineAsyncComponent } from "vue";
+import WidgetBox from "@/components/WidgetBox";
 export default {
-  name: "Dashboard"
+  name: "Dashboard",
+  components: {
+    Sidebar,
+    WidgetBox
+  },
+  props: {
+    name: {
+      type: String,
+      default: "Home"
+    }
+  },
+  computed: {
+    comp() {
+      return defineAsyncComponent(() =>
+        import("@/components/" + this.name + ".vue")
+      );
+    }
+  }
 };
 </script>

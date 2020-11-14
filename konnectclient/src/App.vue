@@ -1,6 +1,6 @@
 <template>
   <!-- To render the Routes Here -->
-  <router-view />
+  <router-view :key="$route.fullPath" />
 </template>
 
 <style>
@@ -68,32 +68,12 @@
   background-size: 100%;
   transition: background 0s;
 }
+.btnContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 </style>
 
-<script>
-import AuthenticationService from "@/services/AuthenticationService";
-export default {
-  //Run This Script as soon as App starts, used to validate the saved tokens
-  async beforeCreate() {
-    if (localStorage.getItem("token") != null) {
-      // console.log(localStorage.getItem("token"))
-      const response = await AuthenticationService.authenticate(
-        {},
-        {
-          headers: {
-            authtoken: localStorage.getItem("token")
-          }
-        }
-      );
-      // console.log(response);
-      if (response.data.error) {
-        // console.log(response.data.err)
-        this.$store.dispatch("logout");
-      } else {
-        console.log("Authenticated");
-        this.$store.dispatch("authenticate");
-      }
-    }
-  }
-};
-</script>
+<script></script>

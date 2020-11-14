@@ -1,5 +1,5 @@
 <template>
-<p>{{message}}</p>
+  <p>{{ message }}</p>
   <form id="signupForm">
     <input type="text" v-model="name" placeholder="Your Name" class="dInput" />
     <input
@@ -14,7 +14,12 @@
       placeholder="Set a Password"
       class="dInput"
     />
-    <button type="button" name="Sign Up" @click="signup()" class="btn rippleRed">
+    <button
+      type="button"
+      name="Sign Up"
+      @click="signup()"
+      class="btn rippleRed"
+    >
       Sign Up
     </button>
   </form>
@@ -28,7 +33,7 @@ export default {
       email: "",
       password: "",
       name: "",
-      message: "",
+      message: ""
     };
   },
   methods: {
@@ -38,11 +43,10 @@ export default {
         email: this.email,
         password: this.password
       });
-      if(response.data.error) {
+      if (response.data.error) {
         this.message = response.data.error;
-      }
-      else if(response.data.user){
-        this.$router.push("/");
+      } else if (response.data.user) {
+        this.$router.push("/Home");
       }
     }
   }

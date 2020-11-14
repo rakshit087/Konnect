@@ -35,9 +35,9 @@ export default {
       if (response.data.error) {
         this.message = response.data.error;
       } else if (response.data.token) {
-        this.$store.dispatch('setToken',response.data.token);
-        this.$store.dispatch('authenticate');
-        this.$router.push("/");
+        this.$store.dispatch("setToken", response.data.token);
+        this.$store.dispatch("authenticate");
+        this.$router.push("/Home");
       }
     }
   }

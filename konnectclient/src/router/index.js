@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Authenticate from "../views/Authenticate.vue";
 import Dashboard from "../views/Dashboard.vue";
-import store from '@/store'
-store.getters.config
+import store from "@/store";
+store.getters.config;
 const routes = [
   {
     path: "/authenticate",
@@ -10,11 +10,20 @@ const routes = [
     component: Authenticate
   },
   {
-    path: "/",
+    path: "/:name",
     name: "dashboard",
     component: Dashboard,
     meta: {
-      requiresAuth:true
+      requiresAuth: true
+    },
+    props: true
+  },
+  {
+    path: "/",
+    name: "home",
+    component: Dashboard,
+    meta: {
+      requiresAuth: true
     }
   }
 ];
@@ -25,9 +34,8 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  console.log(store.state.Authenticated)
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    if (store.state.Authenticated == false) {
+    if (store.state.isAuthenticated == false) {
       next({
         path: "/authenticate"
       });

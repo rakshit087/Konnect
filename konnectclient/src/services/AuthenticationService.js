@@ -7,7 +7,7 @@ export default {
   login(credentials) {
     return Api().post("login", credentials);
   },
-  authenticate(data,headers) {
-    return Api().post("authenticate",data, headers);
+  authenticate(data, headers) {
+    return Api().post("authenticate", data, headers);
   }
 };
