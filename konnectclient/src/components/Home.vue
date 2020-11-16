@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col justify-between w-3/5 h-screen">
-    <Krates />
-    <CreateKrate />
+    <Krates :key="refreshC" />
+    <CreateKrate @krate-posted="refresh()" />
   </div>
 </template>
 
@@ -13,6 +13,16 @@ export default {
   components: {
     Krates,
     CreateKrate
+  },
+  methods: {
+    refresh() {
+      this.refreshC = !this.refreshC;
+    }
+  },
+  data() {
+    return {
+      refreshC: 0
+    };
   }
 };
 </script>

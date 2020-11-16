@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col custom mt-3 m-auto overflow-y-scroll">
+  <div class="flex flex-col custom m-auto overflow-y-scroll items-center">
     <div v-for="(data, index) in this.allKrates" v-bind:key="index">
       <SingleKrate :krateData="data" />
     </div>
@@ -30,8 +30,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.custom{
+.custom {
   width: 98%;
-  height:78%;
+  height: 80%;
 }
 </style>

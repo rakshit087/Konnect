@@ -1,6 +1,6 @@
 <template>
   <div class="bg-offWhite flex justify-center items-center m-auto pt-3">
-    <p class="kratecount">{{ krateCharacterCount }}</p>
+    <p class="kratecount z-0">{{ krateCharacterCount }}</p>
     <input
       maxlength="150"
       type="text"
@@ -34,11 +34,10 @@ export default {
       if (this.krate.length == 0) {
         this.placeholder = "Write Something here Before sending :/";
       } else {
-        const response = await KrateServices.post(this.krate);
-        console.log(response);
+        await KrateServices.post(this.krate);
+        this.$emit("krate-posted");
         this.krate = "";
         this.placeholder = "Your Thoughts...";
-        this.$router.push("/Home");
       }
     }
   }

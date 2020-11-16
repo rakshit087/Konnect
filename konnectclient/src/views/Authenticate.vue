@@ -34,7 +34,7 @@
           Back
         </button>
       </div>
-      <div class="btnContainer">
+      <div class="btnContainer"
         v-if="$store.state.isAuthenticated">
         <button
           v-on:click="

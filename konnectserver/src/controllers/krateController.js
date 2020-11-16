@@ -24,14 +24,7 @@ module.exports = {
     models.Krate.find({})
       .sort({ createdAt: -1 })
       .populate({ path: "sender", select: ["-password", "-email", "-__v"] })
-      .select([
-        "-comments",
-        "-votedBy",
-        "-downVotedBy",
-        "-createdAt",
-        "-updatedAt",
-        "-__v",
-      ])
+      .select(["-comments", "-createdAt", "-updatedAt", "-__v"])
       .exec(function (err, data) {
         if (err) {
           res.send({ error: "Internal Error" });
@@ -91,6 +84,41 @@ module.exports = {
         data.downVotedBy.push(userid);
         res.send({ message: "DownVoted" });
         data.save();
+      }
+    });
+  },
+  postComment(req, res) {
+    Krate = models.Krate;
+    const userid = req.body.userid;
+    const krateid = req.body.krateid;
+    const comment = req.body.comment;
+    models.Krate.findById(krateid).exec(function (err, data) {
+      if (err || !data) {
+        res.send({ error: "Internal Error" });
+      } else {
+        data.comments.push({
+          comment: comment,
+          sender: userid,
+        });
+        data.commentCount = data.commentCount + 1;
+        data.save(function (err) {
+          if (err) {
+            res.send({ error: "Internal Error" });
+          } else {
+            res.send({ message: "sucess" });
+          }
+        });
+      }
+    });
+  },
+  getComments(req, res) {
+    const krateid = req.body.krateid;
+    console.log(krateid);
+    models.Krate.findById(krateid).exec(function (err, data) {
+      if (err || !data) {
+        res.send({ error: "Internal Error" });
+      } else {
+        res.send({ comments: data.comments });
       }
     });
   },

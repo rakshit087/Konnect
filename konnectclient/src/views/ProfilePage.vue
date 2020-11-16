@@ -1,20 +1,21 @@
 <template :key="name">
   <div class="w-screen h-screen flex">
     <Sidebar />
-    <component :is="comp"></component>
+    <Profile :profileId="this.ProfileId" />
     <WidgetBox />
   </div>
 </template>
 
 <script>
+import Profile from '@/components/Profile'
 import Sidebar from "@/components/Sidebar";
-import { defineAsyncComponent } from "vue";
 import WidgetBox from "@/components/WidgetBox";
 export default {
   name: "Dashboard",
   components: {
     Sidebar,
-    WidgetBox
+    WidgetBox,
+    Profile
   },
   props: {
     name: {
@@ -24,14 +25,8 @@ export default {
     },
     profileId: {
       type: String,
-      default: localStorage.getItem("userid")
-    }
-  },
-  computed: {
-    comp() {
-      return defineAsyncComponent(() =>
-        import("@/components/" + this.name + ".vue")
-      );
+      default: localStorage.getItem("userid"),
+      required: false
     }
   }
 };

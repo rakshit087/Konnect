@@ -15,7 +15,10 @@ module.exports = function (app) {
   app.post("/authenticate",AuthenticationController.authenticate);
   app.post("/krate", KrateController.post);
   app.get("/krate", KrateController.get);
-  app.patch("/profile/pic",uploadProfile.single('image'), profileController.uploadProfilePic);
   app.patch("/krate/up",KrateController.up);
   app.patch("/krate/down",KrateController.down);
+  app.put("/krate/comment",KrateController.getComments)
+  app.post("/krate/comment",KrateController.postComment);
+  app.put("/profile", profileController.getProfile);
+  app.patch("/profile/pic",uploadProfile.single('image'), profileController.uploadProfilePic);
 };

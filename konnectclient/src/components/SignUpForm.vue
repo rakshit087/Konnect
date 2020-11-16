@@ -46,6 +46,7 @@ export default {
       if (response.data.error) {
         this.message = response.data.error;
       } else if (response.data.user) {
+        this.message = response.data.message;
         this.$router.push("/Home");
       }
     }

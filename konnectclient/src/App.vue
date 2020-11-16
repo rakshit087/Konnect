@@ -30,13 +30,8 @@
   color: #f5f5f5;
   border: none;
   border-radius: 24px;
-
   font-size: 1.2rem;
   font-weight: 500;
-}
-
-.btn:focus {
-  outline: none;
 }
 
 .rippleGreen {

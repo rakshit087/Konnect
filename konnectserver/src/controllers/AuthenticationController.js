@@ -70,7 +70,7 @@ module.exports = {
           } else {
             if (isMatch) {
               res.send({
-                user: user.toJSON(),
+                user: user._id,
                 token: jwtSignUser(user.toJSON()),
               });
             } else {

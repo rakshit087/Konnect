@@ -15,6 +15,22 @@ const userSchema = mongoose.Schema({
   password: {
     type: String,
   },
+  followersCount: {
+    type: Number,
+    default: 0
+  },
+  followingCount: {
+    type: Number,
+    default: 0
+  },
+  following: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User"
+  }],
+  bio: {
+    type: String,
+    default:"Hello! I am new to this Social Media"
+  }
 });
 
 const krateSchema = mongoose.Schema(

@@ -1,13 +1,22 @@
 <template>
-  <div>
-    Profile
-  </div>
+  <div class="w-3/5"></div>
 </template>
 
 <script>
 export default {
-  name: "Feeds"
+  props: {
+    profileId: {
+      type: String,
+      default: localStorage.getItem("userid"),
+      required: true
+    }
+  },
+  data() {
+    return {
+      isUser: true
+    };
+  }
 };
 </script>
 
-<style scoped lang="scss"></style>
+<style></style>

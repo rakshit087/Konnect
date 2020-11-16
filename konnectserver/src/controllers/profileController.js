@@ -25,4 +25,16 @@ module.exports = {
       }
     });
   },
+  getProfile(req,res) {
+    const id = req.body.userid;
+    models.User.findById(id)
+    .select(['-password','-following','-_id','-__v'])
+    .exec(function(err, user){
+      if(err){
+        res.send({ error: "Internal Error"});
+      }else{
+        res.send({user:user})
+      }
+    });
+  }
 };
