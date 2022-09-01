@@ -2,7 +2,7 @@
 A lot of times we want to connect to small communities in our Universities or certain people who are good at something who are available in our University, sometimes we want to share something to the administration or faculties but are concerned about their reactions. On traditional social media, it’s very hard to do so. That’s where Konnect fits in. It’s a social media which is built for Universities and Colleges. It aims at connecting all the students and faculties of an Institute and maintain a separate and parallel database for them. 
 I had used MEVN stack to build it from scratch.  
 
-# 💻 Tech Stack Used
+## 💻 Tech Stack Used
 
 🔹 I had used Vue to create the front end of the Project, Axios to make HTTP requests and connect to Backend, VUEX for State Management and save tokens, Vue Router to manage the Front End routes, Tailwind CSS as a CSS utility and we also used SASS as a Post Formatting Language.
 
@@ -10,7 +10,7 @@ I had used MEVN stack to build it from scratch.
 
 🔹 For Authentication we use Json Web tokens and bcrypt to hash and salt the passwords.
 
-# 🔧 Installation
+## 🔧 Installation
 
 🔹 Clone the repo, you will get the server and client folders.
 
@@ -20,13 +20,19 @@ I had used MEVN stack to build it from scratch.
 
 🔹 In the server side
 
-# 💡 Features
+## 💡 Features
 
 🔹 You can signup/login and logout, the I had used JWT Web tokens for authentication.
 
 🔹 You can post your thoughts.
 
 🔹 You can upvote and downvote someone else's posts and comment on them.
+
+## 🖼 Gallery
+
+![1VqR8aTgkiZh3v7sQwPMWzKCETHecnqZ-h3TAOcA](https://user-images.githubusercontent.com/50898928/187906609-b2e0a9be-6bd1-4fa4-8eb3-ba79c81bbe2b.png)
+
+![1qC9RO4iDwJk7jpFCRM9M2yfXBmI9DIgLQ6EUZ1g](https://user-images.githubusercontent.com/50898928/187906585-4e6a048d-1b51-4938-9c0a-458ea4fd94f7.png)
 
 # 🐛 Bugs and Future Work
 
